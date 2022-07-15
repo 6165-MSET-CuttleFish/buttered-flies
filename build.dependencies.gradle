@@ -2,6 +2,7 @@ repositories {
     mavenCentral()
     google() // Needed for androidx
     jcenter()  // Needed for tensorflow-lite
+    maven { url = 'https://maven.brott.dev/' }
     flatDir {
         dirs rootProject.file('libs')
     }
@@ -22,5 +23,6 @@ dependencies {
     implementation('org.ejml:ejml-simple:0.39') {
         exclude group: 'org.ejml', module: 'ejml-all'
     }
+    implementation 'com.acmerobotics.dashboard:dashboard:0.4.4'
 }
 

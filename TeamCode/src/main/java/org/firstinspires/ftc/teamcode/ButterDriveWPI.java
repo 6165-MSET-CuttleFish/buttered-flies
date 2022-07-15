@@ -14,7 +14,7 @@ public class ButterDriveWPI {
     public static final double WHEEL_CIRCUMFERENCE = (4*0.0254) * Math.PI;
     public static final double TICKS_PER_ROTATION = 1120;
     public static final double MAX_TICKS_PER_SECOND = 2500;
-
+public static double backmult = 312/435;
     public static final double CHASSIS_RAD_SQUARED = (7*.0254)*(7*.0254) + (8*.0254)*(8*.0254);
     public static final double MAX_DRIVE_SPEED = MAX_TICKS_PER_SECOND * WHEEL_CIRCUMFERENCE / TICKS_PER_ROTATION;
     public static final double MAX_ANGULAR_SPEED = MAX_DRIVE_SPEED / Math.sqrt(CHASSIS_RAD_SQUARED);
@@ -40,10 +40,10 @@ public void drive(double vx, double vy, double va, double imu){
     double frontRight = wheelSpeeds.frontRightMetersPerSecond;
     double backLeft = wheelSpeeds.rearLeftMetersPerSecond;
     double backRight = wheelSpeeds.rearRightMetersPerSecond;
-    motors[0].setPower(backLeft/MAX_DRIVE_SPEED);
+    motors[0].setPower(backmult*(backLeft/MAX_DRIVE_SPEED));
     motors[1].setPower(frontLeft/MAX_DRIVE_SPEED);
     motors[2].setPower(frontRight/MAX_DRIVE_SPEED);
-    motors[3].setPower(backRight/MAX_DRIVE_SPEED);
+    motors[3].setPower(backmult*(backRight/MAX_DRIVE_SPEED));
 }
 
     public void init(HardwareMap hardwareMap) {

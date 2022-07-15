@@ -1,19 +1,29 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-
-@TeleOp(name = "Swerve Complete", group = "Test")
+@Config
+@TeleOp(name = "Butterfly Complete", group = "Test")
 public class ButteryTeleOp extends LinearOpMode {
-
     ButterDriveWPI bot = new ButterDriveWPI();
-    BNO055IMU imu;
+    public static double back_left_servo_inactive = 0;
+    public static double back_left_servo_active = 0;
+    public static double back_right_servo_inactive = 0;
+    public static double back_right_servo_active = 0;
+    public static double front_left_servo_inactive = 0;
+    public static double front_left_servo_active = 0;
+    public static double front_right_servo_inactive = 0;
+    public static double front_right_servo_active = 0;
+            BNO055IMU imu;
     boolean butteryMode = false;
     boolean butteryModeButtonChanged = false;
     public void runOpMode(){
@@ -28,14 +38,15 @@ public class ButteryTeleOp extends LinearOpMode {
         parameters.calibrationDataFile = "";
         parameters.loggingEnabled = false;
         parameters.loggingTag = "Who cares.";
-
+        String[] servoNames = new String[]{"back_left_servo", "front_left_servo", "front_right_servo", "back_right_servo"};
+        Servo[] servos = new Servo[4];
+        for (int i = 0; i < 4; i++)
+            servos[i] = (Servo) hardwareMap.get(Servo.class, servoNames[i]);
         this.imu.initialize(parameters);
         waitForStart();
         while(opModeIsActive()) {
            if(gamepad1.a){
-               if(butteryModeButtonChanged){
-
-               }
+               if(butteryModeButtonChanged){}
                else {
                  butteryMode = !butteryMode;
                    butteryModeButtonChanged = true;
@@ -47,7 +58,17 @@ public class ButteryTeleOp extends LinearOpMode {
             double vx = -gamepad1.left_stick_x * ButterDriveWPI.MAX_DRIVE_SPEED;
             double vy = -gamepad1.left_stick_y * ButterDriveWPI.MAX_DRIVE_SPEED;
            if(butteryMode) {
-               vy = 0;
+               vx = 0;
+               servos[0].setPosition(back_left_servo_active);
+               servos[1].setPosition(front_left_servo_active);
+               servos[2].setPosition(front_right_servo_active);
+               servos[3].setPosition(back_right_servo_active);
+           }
+           else{
+               servos[0].setPosition(back_left_servo_inactive);
+               servos[1].setPosition(front_left_servo_inactive);
+               servos[2].setPosition(front_right_servo_inactive);
+               servos[3].setPosition(back_right_servo_inactive);
            }
             double va = gamepad1.right_stick_x * ButterDriveWPI.MAX_ANGULAR_SPEED;
             //float va = -gamepad1.right_stick_x;
