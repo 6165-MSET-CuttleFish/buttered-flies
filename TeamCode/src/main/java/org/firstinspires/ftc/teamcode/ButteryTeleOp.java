@@ -58,7 +58,6 @@ public class ButteryTeleOp extends LinearOpMode {
             double vx = -gamepad1.left_stick_x * ButterDriveWPI.MAX_DRIVE_SPEED;
             double vy = -gamepad1.left_stick_y * ButterDriveWPI.MAX_DRIVE_SPEED;
            if(butteryMode) {
-               vx = 0;
                servos[0].setPosition(back_left_servo_active);
                servos[1].setPosition(front_left_servo_active);
                servos[2].setPosition(front_right_servo_active);
@@ -72,10 +71,10 @@ public class ButteryTeleOp extends LinearOpMode {
            }
             double va = gamepad1.right_stick_x * ButterDriveWPI.MAX_ANGULAR_SPEED;
             //float va = -gamepad1.right_stick_x;
-            Orientation orientation = this.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
+            Orientation orientation = this.imu.getAngularOrienztation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
             telemetry.addData("Heading", Math.toDegrees(orientation.firstAngle));
             telemetry.update();
-            bot.drive(vy, vx, va,orientation.firstAngle);
+            bot.drive(vy, vx, va,orientation.firstAngle,butteryMode);
         }
     }
 

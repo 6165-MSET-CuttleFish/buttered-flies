@@ -28,14 +28,17 @@ public static double backmult = 312/435;
             m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation
     );
 
-public void drive(double vx, double vy, double va, double imu){
+public void drive(double vx, double vy, double va, double imu,boolean ftp){
     ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(
             vx, vy, va, Rotation2d.fromRadians(imu)
     );
+    if(ftp){
+        speeds.vyzero();
+    }
 
     MecanumDriveWheelSpeeds wheelSpeeds = m_kinematics.toWheelSpeeds(speeds);
     wheelSpeeds.desaturate(MAX_DRIVE_SPEED);
-// Convert to module states
+    // Convert to module states
     double frontLeft = wheelSpeeds.frontLeftMetersPerSecond;
     double frontRight = wheelSpeeds.frontRightMetersPerSecond;
     double backLeft = wheelSpeeds.rearLeftMetersPerSecond;

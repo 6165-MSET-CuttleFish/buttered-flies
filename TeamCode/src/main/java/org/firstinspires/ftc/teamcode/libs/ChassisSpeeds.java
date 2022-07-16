@@ -43,7 +43,9 @@ public class ChassisSpeeds {
      */
     public ChassisSpeeds() {
     }
-
+    public void vyzero(){
+        vyMetersPerSecond = 0;
+    }
     /**
      * Constructs a ChassisSpeeds object.
      *
