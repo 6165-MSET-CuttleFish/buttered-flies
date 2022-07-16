@@ -71,7 +71,7 @@ public class ButteryTeleOp extends LinearOpMode {
            }
             double va = gamepad1.right_stick_x * ButterDriveWPI.MAX_ANGULAR_SPEED;
             //float va = -gamepad1.right_stick_x;
-            Orientation orientation = this.imu.getAngularOrienztation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
+            Orientation orientation = this.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
             telemetry.addData("Heading", Math.toDegrees(orientation.firstAngle));
             telemetry.update();
             bot.drive(vy, vx, va,orientation.firstAngle,butteryMode);
